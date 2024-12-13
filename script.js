@@ -1,27 +1,53 @@
-// Inventory and pricing
+// Store constants
 const items = ["Chair", "Recliner", "Table", "Umbrella"];
 const prices = [25.50, 37.75, 49.95, 24.89];
+const stateZones = ["WA", "OR", "CA", "TX", "FL", "NY"];
+const shippingCosts = [0, 20, 30, 35, 45, 50];
+const taxRate = 0.15;
 
-// Shipping zones
-const shippingCosts = {
-  1: 0,
-  2: 20.00,
-  3: 30.00,
-  4: 35.00,
-  5: 45.00,
-  6: 50.00,
-};
+// Function to make a purchase
+function makePurchase() {
+  let purchasedItems = [];
+  let purchasedQuantities = [];
+  let totalCost = 0;
 
-// Global variables
-let purchasedItems = [];
-let purchasedQuantities = [];
+  while (true) {
+    const item = prompt("Enter the item name (Chair, Recliner, Table, Umbrella):").toLowerCase();
+    const index = items.map(i => i.toLowerCase()).indexOf(item);
+    if (index === -1) {
+      alert("Invalid item. Please try again.");
+      continue;
+    }
 
-// Handle purchase
-function handlePurchase() {
-  let continueShopping = true;
+    const quantity = parseInt(prompt(`Enter the quantity for ${items[index]}:`), 10);
+    if (isNaN(quantity) || quantity <= 0) {
+      alert("Invalid quantity. Please try again.");
+      continue;
+    }
 
-  while (continueShopping) {
-    const itemName = prompt("Enter the item name (Chair, Recliner, Table, Umbrella):").trim();
-    const itemIndex = items.findIndex(item => item.toLowerCase() === itemName.toLowerCase());
-    if (itemIndex === -
+    purchasedItems.push(items[index]);
+    purchasedQuantities.push(quantity);
+    totalCost += prices[index] * quantity;
 
+    const anotherItem = prompt("Do you want to purchase another item? (y/n):").toLowerCase();
+    if (anotherItem !== "y") break;
+  }
+
+  // Ask for state
+  const state = prompt("Enter the state for shipping (e.g., WA, OR):").toUpperCase();
+  const stateIndex = stateZones.indexOf(state);
+  if (stateIndex === -1) {
+    alert("Invalid state. Transaction cancelled.");
+    return;
+  }
+
+  const shippingCost = totalCost > 100 ? 0 : shippingCosts[stateIndex];
+  const tax = totalCost * taxRate;
+  const finalCost = totalCost + shippingCost + tax;
+
+  displayInvoice(purchasedItems, purchasedQuantities, totalCost, tax, shippingCost, finalCost, state);
+}
+
+// Function to display the invoice
+function displayInvoice(items, quantities, subtotal, tax, shipping, total, state) {
+  const invoiceContai
