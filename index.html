@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,23 +7,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Last Gasp Furniture</h1>
-    <p>Find the perfect furniture for your patio!</p>
-  </header>
-
-  <main>
-    <button id="purchase-button">Make a Purchase</button>
-
-    <div id="invoice" style="display: none;">
-      <h2>Invoice</h2>
-      <div id="item-details"></div>
-      <hr>
-      <div id="transaction-details"></div>
-      <button id="reset-button">Shop Again</button>
-    </div>
-  </main>
-
+  <h1>Last Gasp Furniture</h1>
+  <button id="purchase-button" onclick="makePurchase()">Make a Purchase</button>
+  <div id="invoice-container" style="display: none;">
+    <div id="invoice"></div>
+    <button id="reset-button" onclick="resetPage()">Shop Again</button>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
