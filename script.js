@@ -50,4 +50,40 @@ function makePurchase() {
 
 // Function to display the invoice
 function displayInvoice(items, quantities, subtotal, tax, shipping, total, state) {
-  const invoiceContai
+  const invoiceContainer = document.getElementById("invoice");
+  const container = document.getElementById("invoice-container");
+
+  let itemDetails = "";
+  for (let i = 0; i < items.length; i++) {
+    itemDetails += `<tr><td>${items[i]}</td><td>${quantities[i]}</td><td>$${(prices[items.indexOf(items[i])] * quantities[i]).toFixed(2)}</td></tr>`;
+  }
+
+  invoiceContainer.innerHTML = `
+    <h2>Invoice</h2>
+    <table style="width: 100%; text-align: left;">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${itemDetails}
+      </tbody>
+    </table>
+    <hr>
+    <p>State: ${state}</p>
+    <p>Subtotal: $${subtotal.toFixed(2)}</p>
+    <p>Tax: $${tax.toFixed(2)}</p>
+    <p>Shipping: $${shipping.toFixed(2)}</p>
+    <p>Total: $${total.toFixed(2)}</p>
+  `;
+
+  container.style.display = "block";
+}
+
+// Function to reset the page
+function resetPage() {
+  location.reload();
+}
